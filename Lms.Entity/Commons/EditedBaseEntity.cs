@@ -8,8 +8,8 @@ namespace Lms.Entity.Commons
 {
     public class EditedBaseEntity : BaseEntity
     {
-        public int UpdatedId { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public int CreatedId { get; set; }
+        public int? UpdatedId { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public int? CreatedId { get; set; }
     }
 }

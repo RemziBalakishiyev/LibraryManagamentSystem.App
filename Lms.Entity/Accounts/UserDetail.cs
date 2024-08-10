@@ -6,7 +6,9 @@ namespace Lms.Entity.Accounts
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+
+        public string FullName { get => $"{FirstName} {LastName}"; }
+        public DateTime? DateOfBirth { get; set; }
         public int? UserId { get; set; }
         public User User { get; set; }
     }

@@ -6,11 +6,12 @@ namespace Lms.Entity.Books
     {
         public Author()
         {
-            BookAuthors = new HashSet<BookAuthor>();
+            BookAuthors = [];
         }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public string FullName { get => $"{FirstName} {LastName}"; }
+        public DateTime? DateOfBirth { get; set; }
         public ICollection<BookAuthor> BookAuthors { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Lms.DataAccessLayer.Abstract;
 
-public interface IBookRepository: IGenericRepository<Book>
+public interface ICategoryRepository : IGenericRepository<Category>
 {
-   
 }

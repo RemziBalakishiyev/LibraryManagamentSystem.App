@@ -6,7 +6,8 @@ public class Book : EditedBaseEntity
 {
     public Book()
     {
-        BookAuthors = new HashSet<BookAuthor>();
+        BookAuthors = [];
+        UploadedFiles = [];
     }
    
     public string Name { get; set; }
@@ -15,5 +16,7 @@ public class Book : EditedBaseEntity
     public ICollection<BookAuthor> BookAuthors { get; set; }
     public int CategoryId { get; set; }
     public Category Category { get; set; }
+
+    public ICollection<UploadedFile> UploadedFiles { get; set; }
 
 }

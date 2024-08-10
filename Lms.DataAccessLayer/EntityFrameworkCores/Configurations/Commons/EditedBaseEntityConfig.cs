@@ -14,9 +14,9 @@ namespace Lms.DataAccessLayer.EntityFrameworkCores.Configurations.Commons
         public override void Configure(EntityTypeBuilder<T> builder)
         {
             base.Configure(builder);
-            builder.Property(x => x.CreatedId).HasColumnName("CreatedId");
-            builder.Property(x => x.UpdatedDate).HasColumnName("UpdatedDate");
-            builder.Property(x => x.UpdatedId).HasColumnName("UpdatedId");
+            builder.Property(x => x.CreatedId).HasColumnName("CreatedId").IsRequired(false);
+            builder.Property(x => x.UpdatedDate).HasColumnName("UpdatedDate").IsRequired(false); 
+            builder.Property(x => x.UpdatedId).HasColumnName("UpdatedId").IsRequired(false); ;
         }
     }
 }
