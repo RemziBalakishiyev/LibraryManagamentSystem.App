@@ -4,6 +4,7 @@ using Lms.DataAccessLayer.EntityFrameworkCores.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lms.DataAccessLayer.Migrations
 {
     [DbContext(typeof(LmsContext))]
-    partial class LmsContextModelSnapshot : ModelSnapshot
+    [Migration("20240817161153_mig-2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,9 +86,9 @@ namespace Lms.DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 280, DateTimeKind.Utc).AddTicks(4037),
+                            CreatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 303, DateTimeKind.Utc).AddTicks(3350),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 280, DateTimeKind.Utc).AddTicks(4039),
+                            UpdatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 303, DateTimeKind.Utc).AddTicks(3357),
                             UpdatedId = 1,
                             Value = "Admin"
                         });
@@ -105,21 +108,15 @@ namespace Lms.DataAccessLayer.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)")
                         .HasColumnName("Email");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("PassworHash")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
                         .HasColumnName("PasswordHash");
-
-                    b.Property<string>("PasswordSalt")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)")
-                        .HasColumnName("PasswordSalt");
 
                     b.HasKey("Id");
 
@@ -136,10 +133,6 @@ namespace Lms.DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ConfirmCode")
-                        .HasColumnType("int")
-                        .HasColumnName("ConfirmCode");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -354,36 +347,36 @@ namespace Lms.DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6940),
+                            CreatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 309, DateTimeKind.Utc).AddTicks(3212),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6944),
+                            UpdatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 309, DateTimeKind.Utc).AddTicks(3214),
                             UpdatedId = 1,
                             Value = "Dram"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6948),
+                            CreatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 309, DateTimeKind.Utc).AddTicks(3219),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6949),
+                            UpdatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 309, DateTimeKind.Utc).AddTicks(3219),
                             UpdatedId = 1,
                             Value = "Comedy"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6950),
+                            CreatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 309, DateTimeKind.Utc).AddTicks(3221),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6951),
+                            UpdatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 309, DateTimeKind.Utc).AddTicks(3222),
                             UpdatedId = 1,
                             Value = "Dedectiv"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6952),
+                            CreatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 309, DateTimeKind.Utc).AddTicks(3224),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6953),
+                            UpdatedDate = new DateTime(2024, 8, 17, 16, 11, 52, 309, DateTimeKind.Utc).AddTicks(3224),
                             UpdatedId = 1,
                             Value = "Fantastic"
                         });

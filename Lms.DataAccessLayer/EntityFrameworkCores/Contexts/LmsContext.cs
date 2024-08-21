@@ -23,6 +23,7 @@ namespace Lms.DataAccessLayer.EntityFrameworkCores.Contexts
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<RegisterStatus> RegisterStatuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

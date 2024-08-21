@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lms.Entity", "Lms.Entity\Lms.Entity.csproj", "{CC116102-9966-4968-AFCB-EE45FDFB8FB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lms.Entity", "Lms.Entity\Lms.Entity.csproj", "{CC116102-9966-4968-AFCB-EE45FDFB8FB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lms.DataAccessLayer", "Lms.DataAccessLayer\Lms.DataAccessLayer.csproj", "{EBEB85EB-E1E1-4839-A7AC-896A5A8D6314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lms.DataAccessLayer", "Lms.DataAccessLayer\Lms.DataAccessLayer.csproj", "{EBEB85EB-E1E1-4839-A7AC-896A5A8D6314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lms.BusinessLogic", "Lms.BusinessLogic\Lms.BusinessLogic.csproj", "{5D1B8393-27EB-484B-9730-4B560BF802BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lms.BusinessLogic", "Lms.BusinessLogic\Lms.BusinessLogic.csproj", "{5D1B8393-27EB-484B-9730-4B560BF802BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lms.UI", "Lms.UI\Lms.UI.csproj", "{0EFBD349-85ED-4658-844E-AFADC0453382}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lms.UI", "Lms.UI\Lms.UI.csproj", "{0EFBD349-85ED-4658-844E-AFADC0453382}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lms.Core", "Lms.Core\Lms.Core.csproj", "{27BB6419-AE96-4BA7-8B92-7088210AB72E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lms.ExternalServices", "Lms.ExternalServices\Lms.ExternalServices.csproj", "{33D79677-19E7-41D8-ACF6-B13C438B02DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{0EFBD349-85ED-4658-844E-AFADC0453382}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EFBD349-85ED-4658-844E-AFADC0453382}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EFBD349-85ED-4658-844E-AFADC0453382}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27BB6419-AE96-4BA7-8B92-7088210AB72E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27BB6419-AE96-4BA7-8B92-7088210AB72E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27BB6419-AE96-4BA7-8B92-7088210AB72E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27BB6419-AE96-4BA7-8B92-7088210AB72E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33D79677-19E7-41D8-ACF6-B13C438B02DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33D79677-19E7-41D8-ACF6-B13C438B02DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33D79677-19E7-41D8-ACF6-B13C438B02DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33D79677-19E7-41D8-ACF6-B13C438B02DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

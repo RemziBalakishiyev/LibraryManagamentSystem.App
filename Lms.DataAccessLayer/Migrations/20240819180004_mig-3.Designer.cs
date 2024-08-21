@@ -4,6 +4,7 @@ using Lms.DataAccessLayer.EntityFrameworkCores.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lms.DataAccessLayer.Migrations
 {
     [DbContext(typeof(LmsContext))]
-    partial class LmsContextModelSnapshot : ModelSnapshot
+    [Migration("20240819180004_mig-3")]
+    partial class mig3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,9 +86,9 @@ namespace Lms.DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 280, DateTimeKind.Utc).AddTicks(4037),
+                            CreatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 747, DateTimeKind.Utc).AddTicks(8508),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 280, DateTimeKind.Utc).AddTicks(4039),
+                            UpdatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 747, DateTimeKind.Utc).AddTicks(8511),
                             UpdatedId = 1,
                             Value = "Admin"
                         });
@@ -105,8 +108,8 @@ namespace Lms.DataAccessLayer.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)")
                         .HasColumnName("Email");
 
                     b.Property<string>("PasswordHash")
@@ -136,10 +139,6 @@ namespace Lms.DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ConfirmCode")
-                        .HasColumnType("int")
-                        .HasColumnName("ConfirmCode");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -354,36 +353,36 @@ namespace Lms.DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6940),
+                            CreatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 752, DateTimeKind.Utc).AddTicks(8387),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6944),
+                            UpdatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 752, DateTimeKind.Utc).AddTicks(8390),
                             UpdatedId = 1,
                             Value = "Dram"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6948),
+                            CreatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 752, DateTimeKind.Utc).AddTicks(8393),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6949),
+                            UpdatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 752, DateTimeKind.Utc).AddTicks(8394),
                             UpdatedId = 1,
                             Value = "Comedy"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6950),
+                            CreatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 752, DateTimeKind.Utc).AddTicks(8396),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6951),
+                            UpdatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 752, DateTimeKind.Utc).AddTicks(8397),
                             UpdatedId = 1,
                             Value = "Dedectiv"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6952),
+                            CreatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 752, DateTimeKind.Utc).AddTicks(8398),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 8, 20, 22, 35, 18, 285, DateTimeKind.Utc).AddTicks(6953),
+                            UpdatedDate = new DateTime(2024, 8, 19, 18, 0, 3, 752, DateTimeKind.Utc).AddTicks(8399),
                             UpdatedId = 1,
                             Value = "Fantastic"
                         });

@@ -6,7 +6,10 @@ namespace Lms.Entity.Accounts
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public int StatusId { get; set; }
+        public RegisterStatus Status { get; set; }
+        public bool IsConfirmPassword { get; set; }
+        public int? ConfirmCode { get; set; }
         public string FullName { get => $"{FirstName} {LastName}"; }
         public DateTime? DateOfBirth { get; set; }
         public int? UserId { get; set; }

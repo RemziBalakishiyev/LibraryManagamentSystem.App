@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Lms.DataAccessLayer.EntityFrameworkCores.Configurations.Accounts;
 
-public class UserConfig :  BaseEntityConfig<User>
+public class UserConfig : BaseEntityConfig<User>
 {
     public override void Configure(EntityTypeBuilder<User> builder)
     {
         base.Configure(builder);
         builder.Property(x => x.Email)
-            .HasMaxLength(25)
+            .HasMaxLength(50)
             .IsRequired(true)
             .HasColumnName("Email");
 
@@ -20,10 +20,13 @@ public class UserConfig :  BaseEntityConfig<User>
             .IsUnique();
 
 
-        builder.Property(x => x.PassworHash)
+        builder.Property(x => x.PasswordHash)
             .HasMaxLength(256)
             .HasColumnName("PasswordHash");
 
+        builder.Property(x => x.PasswordSalt)
+          .HasMaxLength(256)
+          .HasColumnName("PasswordSalt");
 
         builder.HasOne(x => x.UserDetail)
             .WithOne(x => x.User)
@@ -44,6 +47,6 @@ public class UserConfig :  BaseEntityConfig<User>
         builder.ToTable("Users", "account");
 
 
-            
+
     }
 }
