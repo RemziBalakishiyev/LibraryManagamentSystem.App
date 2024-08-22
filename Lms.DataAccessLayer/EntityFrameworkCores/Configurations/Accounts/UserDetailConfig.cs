@@ -21,6 +21,10 @@ namespace Lms.DataAccessLayer.EntityFrameworkCores.Configurations.Accounts
                 .IsRequired(true)
                 .HasColumnName("FirstName");
 
+            builder.Property(x => x.ConfirmCode)
+                .IsRequired(false)
+                .HasColumnName("ConfirmCode");
+
             builder.Property(x => x.LastName)
                 .HasMaxLength(25)
                 .IsRequired(true)

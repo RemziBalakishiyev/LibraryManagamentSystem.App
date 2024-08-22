@@ -2,6 +2,7 @@
 
 namespace Lms.DataAccessLayer.Abstract;
 
-internal interface IUserRepository: IGenericRepository<User>
+public interface IUserRepository : IGenericRepository<User>
 {
+    Task<User> GetSigninUserWithDetailAsync(string email);
 }

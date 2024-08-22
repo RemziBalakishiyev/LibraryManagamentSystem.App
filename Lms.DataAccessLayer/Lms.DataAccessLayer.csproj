@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Lms.CoreLayer\Lms.CoreLayer.csproj" />
     <ProjectReference Include="..\Lms.Entity\Lms.Entity.csproj" />
   </ItemGroup>
 
