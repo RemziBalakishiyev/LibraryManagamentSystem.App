@@ -30,13 +30,21 @@ builder.Services.Configure<SmtpSetting>(emailConfigurations);
 builder.Services.AddTransient<IEmailService, EmailService>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserDetailRepository, UserDetailRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
+
+builder.Services.AddScoped<IAuthorRepository,AuthorRepository>();
+builder.Services.AddScoped<IAuthorService,AuthorService>();
+
 builder.Services.AddScoped<IValidator<CreatUserDto>, CreateUserDtoValidator>();
 builder.Services.AddScoped<IValidator<SigninUserDto>, SigninUserDtoValidator>();
+builder.Services.AddScoped<IValidator<CreateBookDto>, CreateBookDtoValidator>();
 
 builder.Services.AddAutoMapper(typeof(IServiceRegistration));
 

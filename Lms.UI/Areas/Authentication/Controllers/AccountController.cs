@@ -4,11 +4,8 @@ using Lms.CoreLayer.Helpers;
 using Lms.ExternalServicesLayer.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using static System.Net.WebRequestMethods;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Lms.UI.Areas.Authentication.Controllers
 {
@@ -33,7 +30,7 @@ namespace Lms.UI.Areas.Authentication.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] CreatUserDto userDto)
+        public async Task<IActionResult> Register([FromForm] CreatUserDto userDto, List<IFormFile> imageFiles)
         {
             var result = await _userService.CreateUser(userDto);
 

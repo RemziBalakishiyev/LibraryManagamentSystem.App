@@ -10,10 +10,12 @@ public class CategoryService : ICategoryService
     //** 2. Sinifler arasinda elaqeni azaldir
     //NUMUNE - CategoryService cts = new CategoryService(new CategoryRepository);
     private readonly ICategoryRepository _categoryRepository;
+
     public CategoryService(ICategoryRepository categoryRepository)
     {
-
+        _categoryRepository = categoryRepository;
     }
+
     public async Task<IDictionary<int, string>> GetCategoriesDictionaryAsync()
     {
         return await _categoryRepository.GetCategoryDictionaryAsync();
