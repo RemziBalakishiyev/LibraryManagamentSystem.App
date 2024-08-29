@@ -3,6 +3,7 @@ using Lms.BusinessLogic;
 using Lms.BusinessLogic.Abstract;
 using Lms.BusinessLogic.Concrete;
 using Lms.BusinessLogic.Dtos;
+using Lms.BusinessLogic.Dtosl;
 using Lms.BusinessLogic.Validations;
 using Lms.DataAccessLayer.Abstract;
 using Lms.DataAccessLayer.EntityFrameworkCores.Concrete;
@@ -37,6 +38,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IValidator<CreatUserDto>, CreateUserDtoValidator>();
 builder.Services.AddScoped<IValidator<SigninUserDto>, SigninUserDtoValidator>();
 builder.Services.AddScoped<IValidator<AddBookDto>, AddBookDtoValidator>();
+builder.Services.AddScoped<IValidator<AddBookDto>, AddBookDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateBookDto>, UpdateBookDtoValidator>();
 
 builder.Services.AddAutoMapper(typeof(IServiceRegistration));
 

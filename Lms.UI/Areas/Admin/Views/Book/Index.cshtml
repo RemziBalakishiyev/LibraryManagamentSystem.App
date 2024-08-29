@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "Index";
 }
+@section links{
+    <link href="~/admintemplates/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/admintemplates/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/admintemplates/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+}
 <div class="row">
     <div class="card">
         <div class="card-header">
@@ -18,6 +24,7 @@
                             <div class="modal-body">
                                 <form action="/" method="post" class="row" id="addBookForm" enctype="multipart/form-data">
                                     <div class="row">
+                                        <input class="form-control" type="number" value="0" id="bookId" >
                                         <div class="mb-3 col-3">
                                             <label for="bookName" class="form-label">Book Name</label>
                                             <input class="form-control" type="text" value="Cinayet ve ceza" id="bookName" asp-for="Name">
@@ -84,7 +91,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <table class="dataTables_wrapper dt-bootstrap4 no-footer table table-striped table-bordered" id="book-datatable">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -92,7 +99,10 @@
                         <th>Author</th>
                         <th>Price</th>
                         <th>Description</th>
+                        <th>Category</th>
                         <th>Image</th>
+                        <th>Edited</th>
+                        <th>Deleted</th>
                     </tr>
                 </thead>
             </table>
@@ -101,6 +111,16 @@
 </div>
 
 @section scripts {
+    <script src="~/admintemplates/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/admintemplates/js/pages/datatables.init.js"></script>
     <script>
         $(document).ready(function () {
             $("#authorSwitch").change(function () {
@@ -112,6 +132,7 @@
                     $("#newAuthorFields").show();
                 }
             });
+
 
 
             $("#submitButton").click(function () {
@@ -141,8 +162,14 @@
                     formData.append("imagesFile", files[i]);
                 }
 
+                if ($("#bookId").val()) {
+                    formData.append("Id", $("#bookId").val())
+                }
+
+                var url = $("#bookId").val() ? '/admin/book/UpdateBook' : '/admin/book/addbook'
+
                 $.ajax({
-                    url: '/admin/book/addbook',
+                    url: url,
                     type: 'POST',
                     data: formData,
                     contentType: false,
@@ -162,6 +189,98 @@
                     }
                 })
             })
+
+            $("#book-datatable").dataTable({
+                autoWidth: false,
+                pageLength: 5,
+                lengthMenu: [[5], [10], [15]],
+                ajax: {
+                    url: "/admin/book/GetBook",
+                    dataSrc: ""
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'name' },
+                    { data: 'fullName' },
+                    { data: 'price' },
+                    { data: 'description' },
+                    { data: 'category' },
+                    {
+                        data: 'url',
+                        render: function (data, type, row) {
+                            const relativePath = row.url.replace(/\\/g, '/'); // Co
+                            const imageUrl = `/uploads/${relativePath}`; // Prepend a forward slash to start from the root
+                            return `<img src="${imageUrl}" alt="Book Image" style="max-width: 50px; height: auto;" />`;
+                        }
+
+                                
+                    },
+                    {
+                        data: 'edit',
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-outline-success edit-product" data-id="' + row.id + '">Edit</button>';
+                        }
+                    },
+                    {
+                        data: 'delete',
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-outline-warning delete-product" data-id="' + row.id + '">Delete</button>';
+                        }
+                    },
+                ]
+            })
+
+
+            $("#book-datatable").on("click", ".edit-product", function () {
+                let id = $(this).data("id");
+                $.ajax({
+                    type: "GET",
+                    url: `/admin/book/GetBookById/${id}`,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response) {
+
+                            $("#bookId").val(id);
+
+                            $("#bookName").val(response.name);
+                            $("#description").val(response.description);
+                            $("#price").val(response.price);
+                            $("#categoryId").val(response.categoryId);
+
+
+                            if (response.authorId) {
+                                $("#authorSwitch").prop("checked", true).change(); // Show author dropdown
+                                $("#authorId").val(response.authorId);
+                            } else {
+                                $("#authorSwitch").prop("checked", false).change(); // Show new author fields
+                                if (response.author) {
+                                    $("#firstName").val(response.author.firstName);
+                                    $("#lastName").val(response.author.lastName);
+                                }
+                            }
+
+                           
+                            $("#bookFormModal").modal("show");
+                        } else {
+                            // Handle the case where response is null or undefined
+                            alert("Error: Unable to fetch book details.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle the AJAX error
+                        console.error("AJAX Error:", error);
+                        alert("An error occurred while fetching the book details.");
+                    }
+                });
+            });
+
+
+            // Use event delegation for dynamically created delete buttons (if needed)
+            $("#book-datatable").on("click", ".delete-product", function () {
+                let id = $(this).data("id");
+                // Implement your delete logic here
+                console.log("Delete product with ID:", id);
+            });
         })
     </script>
 }
