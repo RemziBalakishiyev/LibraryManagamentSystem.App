@@ -12,10 +12,10 @@ public class CategoryService : ICategoryService
     private readonly ICategoryRepository _categoryRepository;
     public CategoryService(ICategoryRepository categoryRepository)
     {
-
+        _categoryRepository = categoryRepository;
     }
     public async Task<IDictionary<int, string>> GetCategoriesDictionaryAsync()
     {
-        return await _categoryRepository.GetCategoryDictionaryAsync();
+        return await _categoryRepository.GetDictionaryAsync(x=>x.Id,x=>x.Value);
     }
 }

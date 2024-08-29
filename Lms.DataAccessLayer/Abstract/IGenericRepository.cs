@@ -12,4 +12,7 @@ public interface IGenericRepository<T> where T : BaseEntity
     Task SaveChangesAsync();
     bool Update(T entity);
     bool Remove(T entity);
+
+    Task<IDictionary<TKey, TElement>> GetDictionaryAsync<TKey,TElement>(Func<T,TKey> keySelector,Func<T,TElement> valueSelector);
+
 }

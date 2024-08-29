@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Lms.BusinessLogic.Dtos;
 using Lms.Entity.Accounts;
+using Lms.Entity.Books;
+using Lms.Entity.Commons;
 
 namespace Lms.BusinessLogic.Mappers;
 
@@ -10,5 +12,8 @@ public class MapProfile : Profile
     {
         CreateMap<CreatUserDto, User>();
         CreateMap<CreatUserDto, UserDetail>();
+        CreateMap<AddAuthorDto, Author>();
+        CreateMap<AddBookDto, Book>();
+        CreateMap<UploadedFileDto, UploadedFile>();
     }
 }

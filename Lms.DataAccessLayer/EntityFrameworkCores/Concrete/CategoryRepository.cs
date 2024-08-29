@@ -11,8 +11,5 @@ public class CategoryRepository : GenericRepository<Category>, ICategoryReposito
     {
     }
 
-    public async Task<IDictionary<int, string>> GetCategoryDictionaryAsync()
-    {
-        return await TableEntity.ToDictionaryAsync(x=>x.Id,x=>x.Value);
-    }
+    
 }

@@ -25,6 +25,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Authentication\Data\" />
     <Folder Include="Areas\Authentication\Models\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>
