@@ -9,24 +9,28 @@ using Lms.CoreLayer.Wrappers.Interfaces;
 using Lms.DataAccessLayer.Abstract;
 using Lms.Entity.Books;
 using Lms.Entity.Commons;
+using System.Collections.Generic;
 
 namespace Lms.BusinessLogic.Concrete;
 
-public class BookService : IBookService
+public class BookService : ServiceBase,IBookService
 {
     private readonly IMapper _mapper;
     private readonly IBookRepository _bookRepository;
     private readonly IValidator<AddBookDto> _addBookDtoValidator;
 
-    public BookService(
-        IBookRepository bookRepository,
-        IMapper mapper,
-        IValidator<AddBookDto> createBookDtoValidator)
+    public BookService(IUserService userService,
+                       IUserRepository userRepository,
+                       IBookRepository bookRepository,
+                       IMapper mapper,
+                       IValidator<AddBookDto> createBookDtoValidator) : base(userService, userRepository)
     {
         _bookRepository = bookRepository;
         _mapper = mapper;
         _addBookDtoValidator = createBookDtoValidator;
     }
+
+ 
     public async Task<IResponseDataResult.IResponseDataResult<bool>> AddAsync(AddBookDto bookDto)
     {
         var result = await _addBookDtoValidator.ValidateAsync(bookDto);
@@ -58,7 +62,26 @@ public class BookService : IBookService
         bookEntity.UploadedFiles = uploadedFilesEntity;
 
         await _bookRepository.AddAsync(bookEntity);
-        await _bookRepository.SaveChangesAsync();
+        await SaveChangesAsync();
+        return new ResponseDataResult<bool>(ResponseType.SuccessResult);
+    }
+
+    public async Task<IResponseDataResult.IResponseDataResult<IEnumerable<GetBookViewDto>>> GetAllAsync()
+    {
+        var books =await _bookRepository.GetBooksWithDetailsAsync();
+        return new ResponseDataResult<IEnumerable<GetBookViewDto>>(ResponseType.SuccessResult, _mapper.Map<IEnumerable<GetBookViewDto>>(books));
+    }
+
+    public async Task<IResponseDataResult.IResponseDataResult<bool>> RemoveAsync(int id)
+    {
+        var book = await _bookRepository.GetByIdAsync(id);
+        if (book is null)
+        {
+            return new ResponseDataResult<bool>(ResponseType.NotFound,"Book  not found to delete");
+        }
+
+         _bookRepository.Remove(book);
+        await SaveChangesAsync();
         return new ResponseDataResult<bool>(ResponseType.SuccessResult);
     }
 }

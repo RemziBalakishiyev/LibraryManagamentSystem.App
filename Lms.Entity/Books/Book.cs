@@ -9,14 +9,14 @@ public class Book : EditedBaseEntity
         BookAuthors = [];
         UploadedFiles = [];
     }
-   
+
     public string Name { get; set; }
     public string Description { get; set; }
     public double Price { get; set; }
     public ICollection<BookAuthor> BookAuthors { get; set; }
     public int CategoryId { get; set; }
     public Category Category { get; set; }
-  public ICollection<UploadedFile> UploadedFiles { get; set; }
-  
+    public ICollection<UploadedFile> UploadedFiles { get; set; }
+
 
 }

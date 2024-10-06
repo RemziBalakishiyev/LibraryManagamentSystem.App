@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "Index";
 }
+@section links{
+    <link href="~/admintemplates/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/admintemplates/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/admintemplates/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/admintemplates/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+}
 <div class="row">
     <div class="card">
         <div class="card-header">
@@ -84,7 +90,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <table class="dataTables_wrapper dt-bootstrap4 no-footer table table-striped table-bordered" id="book-datatable">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -92,7 +98,10 @@
                         <th>Author</th>
                         <th>Price</th>
                         <th>Description</th>
+                        <th>Category</th>
                         <th>Image</th>
+                        <th>Edited</th>
+                        <th>Deleted</th>
                     </tr>
                 </thead>
             </table>
@@ -101,6 +110,21 @@
 </div>
 
 @section scripts {
+
+    <script src="~/admintemplates/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/admintemplates/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/admintemplates/js/pages/datatables.init.js"></script>
+
+    <script src="~/admintemplates/libs/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/admintemplates/js/pages/sweetalert.init.js"></script>
+
     <script>
         $(document).ready(function () {
             $("#authorSwitch").change(function () {
@@ -112,8 +136,6 @@
                     $("#newAuthorFields").show();
                 }
             });
-
-
             $("#submitButton").click(function () {
                 var formData = new FormData();
 
@@ -162,6 +184,95 @@
                     }
                 })
             })
+
+
+            $("#book-datatable").dataTable({
+                autoWidth: false,
+                pageLength: 5,
+                lengthMenu: [[5], [10], [15]],
+                ajax: {
+                    url: "/admin/book/GetBook",
+                    dataSrc: ""
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'name' },
+                    { data: 'fullName' },
+                    { data: 'price' },
+                    { data: 'description' },
+                    { data: 'category' },
+                    {
+                        data:'url',
+                        render: function(data,type,row){
+                            const relativePath = row.url;
+                            return `<img src="/uploads/${relativePath}" style="max-width: 50px; height: auto;" >`
+                        }
+                    },
+                    {
+                        data: 'edit',
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-outline-success edit-product" data-id="' + row.id + '">Edit</button>';
+                        }
+                    },
+                    {
+                        data: 'delete',
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-outline-warning delete-product" data-id="' + row.id + '">Delete</button>';
+                        }
+                    },
+                
+                ]
+            })
+
+            $("#book-datatable").on("click", ".delete-product", function () {
+                let id = $(this).data("id");
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Swal.fire({
+                        //     title: "Deleted!",
+                        //     text: "Your file has been deleted.",
+                        //     icon: "success"
+                        // });
+
+                        $.ajax({
+                            url: `/admin/book/RemoveBook/${id}`,
+                            type: 'GET',
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.success) {
+                                    $("#bookFormModal").modal('hide');
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: response.message,
+                                        icon: "success"
+                                    });
+
+                                    window.location.reload();
+                                }
+                                else {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Oops...",
+                                        text: "Something went wrong!",
+                                        footer: '<a href="#">Why do I have this issue?</a>'
+                                    });
+                                }
+
+                            }
+                        })
+                    }
+                });
+            })
+
+         
         })
     </script>
 }

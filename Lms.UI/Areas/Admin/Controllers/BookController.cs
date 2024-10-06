@@ -7,9 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Lms.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Authorize(Roles = "Worker")]
     public class BookController : Controller
     {
-        //[Authorize(Roles ="Worker")]
         private readonly ICategoryService _categoryService;
         private readonly IAuthorService _authorService;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -55,7 +56,7 @@ namespace Lms.UI.Areas.Admin.Controllers
                     {
                         string uniqueImageName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(image.FileName);
                         string filePath = Path.Combine(uploadsFolder, uniqueImageName);
-                        using (var fileStream = new FileStream(filePath,FileMode.Create))
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
                         {
                             await image.CopyToAsync(fileStream);
                         }
@@ -64,7 +65,7 @@ namespace Lms.UI.Areas.Admin.Controllers
                             FileName = uniqueImageName,
                             RelativePath = filePath,
                             ContentType = image.ContentType,
-                        });;
+                        }); ;
                     }
                 }
 
@@ -88,6 +89,25 @@ namespace Lms.UI.Areas.Admin.Controllers
             }
 
             return RedirectToAction("Index", "Books");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBook()
+        {
+            var result = await _bookService.GetAllAsync();
+            return Json(result.Data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RemoveBook(int id)
+        {
+            var result = await _bookService.RemoveAsync(id);
+            if (result.ResponseType == CoreLayer.Enums.ResponseType.NotFound)
+            {
+                return Json(new { success = false, message = result.Message });
+            }
+            return Json(new { success = true, message = "Book was deleted successfully" });
+
         }
     }
 }

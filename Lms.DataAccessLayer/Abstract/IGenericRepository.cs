@@ -9,7 +9,7 @@ public interface IGenericRepository<T> where T : BaseEntity
     Task<T> GetByIdAsync(int id);
     public IQueryable<T> GetWhereAsync(Expression<Func<T, bool>> expression);
     Task<bool> AddAsync(T entity);
-    Task SaveChangesAsync();
+    Task SaveChangesAsync(int? userId = null);
     bool Update(T entity);
     bool Remove(T entity);
 

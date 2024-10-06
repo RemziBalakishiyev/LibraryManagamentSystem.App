@@ -11,6 +11,7 @@ using Lms.Entity.Books;
 using Lms.ExternalServicesLayer.Interfaces;
 using Lms.ExternalServicesLayer.Models;
 using Lms.ExternalServicesLayer.Services;
+using Lms.UI.Middlewares;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -75,6 +76,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<AuthenticationHandlerMiddleware>();
 
 
 app.MapControllerRoute(

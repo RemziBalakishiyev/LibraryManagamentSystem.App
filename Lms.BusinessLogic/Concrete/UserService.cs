@@ -11,6 +11,7 @@ using Lms.CoreLayer.Wrappers.Interfaces;
 using Lms.DataAccessLayer.Abstract;
 using Lms.Entity.Accounts;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using static Lms.CoreLayer.Wrappers.Interfaces.IResponseDataResult;
 
 namespace Lms.BusinessLogic.Concrete;
@@ -23,7 +24,7 @@ public class UserService : IUserService
     private readonly IValidator<CreatUserDto> _createUserDtoValidator;
     private readonly IValidator<SigninUserDto> _signinUserDtoValidator;
     private readonly IMapper _mapper;
-
+    private RegisterUserDto _registerUser;
     public UserService(IUserRepository userRepository,
                        IUserDetailRepository userDetailRepository,
                        IValidator<CreatUserDto> createUserDtoValidator,
@@ -37,6 +38,11 @@ public class UserService : IUserService
         _signinUserDtoValidator = signinUserDtoValidator;
     }
 
+
+    public RegisterUserDto GetRegisterUserDto()
+    {
+        return _registerUser;
+    }
     public async Task<IResponseResult> ChangeUserStatusAsync(RegisterStatusEnum registerStatus, int userId)
     {
         var user = await _userDetailRepository
@@ -46,7 +52,7 @@ public class UserService : IUserService
         if (user is not null)
         {
             user.StatusId = (int)registerStatus;
-            await _userDetailRepository.SaveChangesAsync();
+         
             return new ResponseResult(ResponseType.SuccessResult);
         }
 
@@ -98,6 +104,21 @@ public class UserService : IUserService
         });
     }
 
+
+    public void SetRegisterUser(ClaimsPrincipal claimsPrincipal)
+    {
+        var userId = claimsPrincipal.Claims.FirstOrDefault(c => c.Type.Equals(ClaimTypes.NameIdentifier));
+        var firstName = claimsPrincipal.Claims.FirstOrDefault(c => c.Type.Equals(ClaimTypes.Name));
+        var lastName = claimsPrincipal.Claims.FirstOrDefault(c => c.Type.Equals(ClaimTypes.Surname));
+
+        _registerUser = new RegisterUserDto
+        {
+            Id = Convert.ToInt32(userId.Value),
+            FirstName = firstName.Value.ToString(),
+            LastName = lastName.Value,
+        };
+
+    }
     public async Task<IResponseDataResult.IResponseDataResult<RegisterUserDto>> CreateUser(CreatUserDto userDto)
     {
         var result = await _createUserDtoValidator.ValidateAsync(userDto);

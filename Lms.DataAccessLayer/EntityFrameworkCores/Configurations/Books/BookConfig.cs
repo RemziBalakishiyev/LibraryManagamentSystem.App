@@ -29,12 +29,13 @@ public class BookConfig : EditedBaseEntityConfig<Book>
 
         builder.HasMany(x => x.BookAuthors)
             .WithOne(x => x.Book)
-            .HasForeignKey(x => x.AuthorId);
+            .HasForeignKey(x => x.BookId);
 
 
         builder.HasMany(x => x.UploadedFiles)
             .WithOne()
-            .HasForeignKey(x => x.BookId);
+            .HasForeignKey(x => x.BookId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.ToTable("Books", "app",x => x.HasCheckConstraint("CK_Book_Price", "[Price] >= 0"));
     }

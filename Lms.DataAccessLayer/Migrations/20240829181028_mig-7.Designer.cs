@@ -4,6 +4,7 @@ using Lms.DataAccessLayer.EntityFrameworkCores.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lms.DataAccessLayer.Migrations
 {
     [DbContext(typeof(LmsContext))]
-    partial class LmsContextModelSnapshot : ModelSnapshot
+    [Migration("20240829181028_mig-7")]
+    partial class mig7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,9 +86,9 @@ namespace Lms.DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 567, DateTimeKind.Utc).AddTicks(9850),
+                            CreatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 380, DateTimeKind.Utc).AddTicks(8441),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 567, DateTimeKind.Utc).AddTicks(9852),
+                            UpdatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 380, DateTimeKind.Utc).AddTicks(8444),
                             UpdatedId = 1,
                             Value = "Admin"
                         });
@@ -300,12 +303,17 @@ namespace Lms.DataAccessLayer.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
+                    b.Property<int>("AuthorId1")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("BookId", "AuthorId");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("AuthorId1");
 
                     b.ToTable("BookAuthors", "app");
                 });
@@ -347,36 +355,36 @@ namespace Lms.DataAccessLayer.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 571, DateTimeKind.Utc).AddTicks(6140),
+                            CreatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 389, DateTimeKind.Utc).AddTicks(6089),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 571, DateTimeKind.Utc).AddTicks(6142),
+                            UpdatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 389, DateTimeKind.Utc).AddTicks(6092),
                             UpdatedId = 1,
                             Value = "Dram"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 571, DateTimeKind.Utc).AddTicks(6144),
+                            CreatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 389, DateTimeKind.Utc).AddTicks(6096),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 571, DateTimeKind.Utc).AddTicks(6145),
+                            UpdatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 389, DateTimeKind.Utc).AddTicks(6096),
                             UpdatedId = 1,
                             Value = "Comedy"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 571, DateTimeKind.Utc).AddTicks(6147),
+                            CreatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 389, DateTimeKind.Utc).AddTicks(6098),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 571, DateTimeKind.Utc).AddTicks(6147),
+                            UpdatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 389, DateTimeKind.Utc).AddTicks(6099),
                             UpdatedId = 1,
                             Value = "Dedectiv"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 571, DateTimeKind.Utc).AddTicks(6149),
+                            CreatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 389, DateTimeKind.Utc).AddTicks(6100),
                             CreatedId = 1,
-                            UpdatedDate = new DateTime(2024, 9, 4, 18, 31, 7, 571, DateTimeKind.Utc).AddTicks(6149),
+                            UpdatedDate = new DateTime(2024, 8, 29, 18, 10, 26, 389, DateTimeKind.Utc).AddTicks(6101),
                             UpdatedId = 1,
                             Value = "Fantastic"
                         });
@@ -485,15 +493,15 @@ namespace Lms.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Lms.Entity.Books.BookAuthor", b =>
                 {
-                    b.HasOne("Lms.Entity.Books.Author", "Author")
+                    b.HasOne("Lms.Entity.Books.Book", "Book")
                         .WithMany("BookAuthors")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Lms.Entity.Books.Book", "Book")
+                    b.HasOne("Lms.Entity.Books.Author", "Author")
                         .WithMany("BookAuthors")
-                        .HasForeignKey("BookId")
+                        .HasForeignKey("AuthorId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
